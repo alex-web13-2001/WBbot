@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WB Слоты - Мониторинг приёмки</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔍 WB Мониторинг слотов приёмки</h1>
+            <p class="subtitle">Отслеживайте доступные слоты для поставки товаров на склады Wildberries</p>
+        </header>
+
+        <!-- Форма ввода -->
+        <section class="input-section">
+            <div class="form-group">
+                <label for="apiToken">🔑 WB API Токен:</label>
+                <input type="password" id="apiToken" placeholder="Введите ваш API токен">
+                <small>Получите токен в <a href="https://seller.wildberries.ru/" target="_blank">личном кабинете WB</a> → Настройки → API</small>
+            </div>
+            
+            <div class="form-group">
+                <label for="warehouseIds">🏭 ID складов (опционально):</label>
+                <input type="text" id="warehouseIds" placeholder="507,117501,205349 или оставьте пустым">
+                <small>Оставьте пустым для проверки всех доступных складов</small>
+            </div>
+
+            <button id="fetchSlots" class="btn-primary">
+                <span class="btn-text">Получить слоты</span>
+                <span class="btn-icon">🔍</span>
+            </button>
+        </section>
+
+        <!-- Статус загрузки -->
+        <div id="loading" class="loading hidden">
+            <div class="spinner"></div>
+            <p>Загрузка данных с сервера Wildberries...</p>
+        </div>
+
+        <!-- Сводка (служебный блок) -->
+        <section id="summary" class="summary hidden">
+            <h2>📊 Сводка</h2>
+            <div id="summaryContent"></div>
+        </section>
+
+        <!-- Таблица с данными -->
+        <section id="tableSection" class="table-section hidden">
+            <h2>📋 Детальная информация по слотам</h2>
+            <div class="filters">
+                <label>
+                    <input type="checkbox" id="showOnlyAvailable" checked>
+                    Показывать только доступные слоты
+                </label>
+            </div>
+            <div class="table-wrapper">
+                <table id="slotsTable">
+                    <thead>
+                        <tr>
+                            <th>Дата</th>
+                            <th>Склад</th>
+                            <th>ID склада</th>
+                            <th>BoxType ID</th>
+                            <th>Коэффициент</th>
+                            <th>Разгрузка</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Сырой JSON -->
+        <section id="jsonSection" class="json-section hidden">
+            <h2>🧾 Сырой JSON ответ API</h2>
+            <button id="toggleJson" class="btn-secondary">Показать/Скрыть JSON</button>
+            <pre id="rawJson" class="hidden"></pre>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <p>💡 Лимит запросов: 6 в минуту | 📚 <a href="https://dev.wildberries.ru/openapi/orders-fbw" target="_blank">Документация WB API</a></p>
+        </footer>
+    </div>
+
+    <script src="js/ui.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
